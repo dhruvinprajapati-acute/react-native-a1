@@ -16,16 +16,13 @@ import {
   View,
 } from 'react-native';
 import GoalItem from './components/GoalItem';
+import GoalInput from './components/GoalInput';
 
 
 function App(): React.JSX.Element {
-  const [enterdGoalText, setEnterdGoalText] = useState('');
   const [courseGoles, setCourseGoles] = useState([]);
 
-  function goalInputHandler(value : any){
-    setEnterdGoalText(value);
-  }
-  function addGoalHandler(){
+  function addGoalHandler(enterdGoalText:any){
     setCourseGoles((currentCourseGoals) => [
       ...currentCourseGoals,
       {text: enterdGoalText, id: Math.random().toString()}
@@ -33,10 +30,7 @@ function App(): React.JSX.Element {
   }
   return (
     <View style={styles.appContainer}>
-      <View style={styles.inputContainer}>
-        <TextInput style={styles.textInput} placeholder="Your Goal...!!!" onChangeText={goalInputHandler} />
-        <Button title="Add Goal" onPress={addGoalHandler}/>
-      </View>
+      <GoalInput onAddGoal={addGoalHandler}/>
       <View style={styles.goalsContainer}>
         <FlatList 
         data={courseGoles} 
@@ -58,22 +52,6 @@ const styles = StyleSheet.create({
     flex:1,
     padding: 50,
     paddingHorizontal: 16,
-  },
-  inputContainer: {
-    flex:1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 24,
-    borderBottomWidth: 1,
-    borderBlockColor: '#cccccc',
-  },
-  textInput:{
-    borderWidth: 1,
-    borderColor: '#cccccc',
-    width: '70%',
-    margin: 8,
-    padding: 8,
   },
   goalsContainer:{
     flex:4,
