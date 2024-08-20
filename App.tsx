@@ -8,6 +8,7 @@
 import React, { useState } from 'react';
 import {
   Button,
+  FlatList,
   ScrollView,
   StyleSheet,
   Text,
@@ -26,7 +27,7 @@ function App(): React.JSX.Element {
   function addGoalHandler(){
     setCourseGoles((currentCourseGoals) => [
       ...currentCourseGoals,
-      enterdGoalText
+      {text: enterdGoalText, id: Math.random().toString()}
     ]);
   }
   return (
@@ -36,16 +37,20 @@ function App(): React.JSX.Element {
         <Button title="Add Goal" onPress={addGoalHandler}/>
       </View>
       <View style={styles.goalsContainer}>
-        <ScrollView>
-          {
-            courseGoles.map((goals) =>
-              <View key={goals} style={styles.goalItems}>
+        <FlatList 
+        data={courseGoles} 
+        renderItem={(itemData) => {
+          return (
+            <View style={styles.goalItems}>
                 <Text style={styles.goalText}>
-                  {goals}
+                  {itemData.item.text}
                 </Text>
               </View>
-          )}
-        </ScrollView>
+          );
+        }}
+        keyExtractor={(item, index) => {
+          return item.id;
+        }} />
       </View>
     </View>
   );
