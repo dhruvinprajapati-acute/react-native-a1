@@ -28,6 +28,11 @@ function App(): React.JSX.Element {
       {text: enterdGoalText, id: Math.random().toString()}
     ]);
   }
+  function deleteGoalsHandler(id: string){
+    setCourseGoles(currentGoalState => {
+      return currentGoalState.filter((goal) => goal.id !== id);
+    });
+  }
   return (
     <View style={styles.appContainer}>
       <GoalInput onAddGoal={addGoalHandler}/>
@@ -36,7 +41,11 @@ function App(): React.JSX.Element {
         data={courseGoles} 
         renderItem={(itemData) => {
           return (
-            <GoalItem text={itemData.item.text} />
+            <GoalItem 
+              text={itemData.item.text} 
+              onDeleteItem={deleteGoalsHandler}
+              id={itemData.item.id}
+            />
           );
         }}
         keyExtractor={(item, index) => {

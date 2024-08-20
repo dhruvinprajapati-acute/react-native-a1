@@ -1,12 +1,15 @@
-import { StyleSheet, Text, View } from "react-native";
+/* eslint-disable react/react-in-jsx-scope */
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
-function GoalItem(props : any){
+function GoalItem(this: any, props : any){
     return(
-        <View style={styles.goalItems}>
-          <Text style={styles.goalText}>
-            {props.text}
-          </Text>
-        </View>
+        <Pressable onPress={props.onDeleteItem.bind(this, props.id)}>
+            <View style={styles.goalItems}>
+            <Text style={styles.goalText}>
+                {props.text}
+            </Text>
+            </View>
+        </Pressable>
     );
 }
 
