@@ -8,6 +8,7 @@
 import React, { useState } from 'react';
 import {
   Button,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -35,14 +36,16 @@ function App(): React.JSX.Element {
         <Button title="Add Goal" onPress={addGoalHandler}/>
       </View>
       <View style={styles.goalsContainer}>
-        {
-          courseGoles.map((goals) =>
-            <View key={goals} style={styles.goalItems}>
-              <Text style={styles.goalText}>
-                {goals}
-              </Text>
-            </View>
-        )}
+        <ScrollView>
+          {
+            courseGoles.map((goals) =>
+              <View key={goals} style={styles.goalItems}>
+                <Text style={styles.goalText}>
+                  {goals}
+                </Text>
+              </View>
+          )}
+        </ScrollView>
       </View>
     </View>
   );
