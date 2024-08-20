@@ -20,13 +20,22 @@ import GoalInput from './components/GoalInput';
 
 
 function App(): React.JSX.Element {
+  const [modalIsVisible, setModalIsVisible] = useState(false);
   const [courseGoles, setCourseGoles] = useState([]);
+
+  function startAddGoalHandler(){
+    setModalIsVisible(true);
+  }
+  function endAddGoalHandler(){
+    setModalIsVisible(false);
+  }
 
   function addGoalHandler(enterdGoalText:any){
     setCourseGoles((currentCourseGoals) => [
       ...currentCourseGoals,
       {text: enterdGoalText, id: Math.random().toString()}
     ]);
+    endAddGoalHandler();
   }
   function deleteGoalsHandler(id: string){
     setCourseGoles(currentGoalState => {
@@ -35,7 +44,12 @@ function App(): React.JSX.Element {
   }
   return (
     <View style={styles.appContainer}>
-      <GoalInput onAddGoal={addGoalHandler}/>
+      <Button title="Add Goal" color="#5e0acc" onPress={startAddGoalHandler} />
+      <GoalInput 
+        onAddGoal={addGoalHandler}
+        onCancle={endAddGoalHandler}
+        visible={modalIsVisible}
+      />
       <View style={styles.goalsContainer}>
         <FlatList 
         data={courseGoles} 
